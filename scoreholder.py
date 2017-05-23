@@ -6,7 +6,7 @@ import re
 from midiutil import MIDIFile
 
 
-PITCH_RE = re.compile(r'([A-Ga-g])(bb|b|#|x)(-1|[0-9])')
+PITCH_RE = re.compile(r'([A-Ga-g])(bb|b|#|x|)(-1|[0-9])')
 PITCH_NAME_OFFSETS = {
     "C": 0,
     "D": 2,
@@ -19,6 +19,7 @@ PITCH_NAME_OFFSETS = {
 PITCH_ACCIDENTAL_OFFSETS = {
     "bb": -2,
     "b": -1,
+    "": 0,
     "#": 1,
     "x": 2
 }
@@ -301,7 +302,7 @@ class ScoreHolder:
         Writes the current internal musical representation to the file
         specified by ``filepath``.
         """
-        midi = MIDIFile(sum(1 for v in self.voices if v), True, True, True, 1)
+        midi = MIDIFile(sum(1 for v in self.voices if v) + 1, True, True, True, 1)
 
         i = -1
         for vindex in range(len(self.voices)):
@@ -309,6 +310,7 @@ class ScoreHolder:
             if not voice:
                 continue
             i += 1
+            if i == 9: i += 1
             time = 0.0
             midi.addTempo(i, 0, self.tempo)
             midi.addProgramChange(i, i, 0, self.instruments[vindex])
