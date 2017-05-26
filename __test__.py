@@ -32,20 +32,33 @@ S.setinstrument("orchestral harp", 14)
 
 for i in range(250):
     S.add(random.choice(notes1), random.uniform(0.8, 5.5), random.randint(0, 14), random.randint(52, 127))
+    if random.random() < 0.125:
+        S.adddrum(random.randint(35, 59), random.uniform(0.1, 1.5), random.randint(52, 126))
 
 for i in range(250):
     S.add(random.choice(notes2), random.uniform(1, 5.5), random.randint(0, 14), random.randint(52, 117))
+    if random.random() < 0.125:
+        S.adddrum(random.randint(35, 59), random.uniform(0.2, 1.5), random.randint(52, 116))
 
 for i in range(250):
     S.add(random.choice(notes3), random.uniform(1.2, 5.5), random.randint(0, 14), random.randint(52, 107))
+    if random.random() < 0.125:
+        S.adddrum(random.randint(35, 59), random.uniform(0.3, 1.5), random.randint(52, 106))
 
 for i in range(250):
     S.add(random.choice(notes4), random.uniform(1.4, 5.5), random.randint(0, 14), random.randint(52, 97))
+    if random.random() < 0.125:
+        S.adddrum(random.randint(35, 59), random.uniform(0.4, 1.5), random.randint(52, 96))
 
 for i in range(250):
     S.add(random.choice(notes5), random.uniform(1.6, 5.5), random.randint(0, 14), random.randint(52, 87))
+    if random.random() < 0.125:
+        S.adddrum(random.randint(35, 59), random.uniform(0.5, 1.5), random.randint(52, 86))
 
 for i in range(250):
     S.add(random.choice(notes6), random.uniform(1.8, 5.5), random.randint(0, 14), random.randint(52, 77))
+    if random.random() < 0.125:
+        S.adddrum(random.randint(35, 59), random.uniform(0.6, 1.5), random.randint(52, 76))
 
-S.writefile("test.mid")
+
+S.writefile("test3.mid")

@@ -195,6 +195,7 @@ class ScoreHolder:
         self.tempo = tempo
         self.voices = [None] * 16
         self.instruments = [1] * 16
+        self.drums = []
 
     def hasvoice(self, voice=0):
         """
@@ -254,6 +255,10 @@ class ScoreHolder:
             self.voices[voice] = []
 
         self.voices[voice].insert(index, Note(pitch, duration, volume))
+
+    def adddrum(self, pitch, duration=1, volume=96):
+        """ Adds a drum note to the end of the drum track. """
+        self.drums.append(Note(pitch, duration, volume))
 
     def remove(self, voice=0):
         """ Removes the last note in a given voice and returns it. """
@@ -320,6 +325,15 @@ class ScoreHolder:
                         i, i, note.pitch, time, note.duration, note.volume
                     )
                 time += note.duration
+
+        time = 0.0
+        midi.addTempo(9, 0, self.tempo)
+        for note in self.drums:
+            if note.pitch >= 0:
+                midi.addNote(
+                    9, 9, note.pitch, time, note.duration, note.volume
+                )
+            time += note.duration
 
         with open(filepath, "wb") as outputfile:
             midi.writeFile(outputfile)
